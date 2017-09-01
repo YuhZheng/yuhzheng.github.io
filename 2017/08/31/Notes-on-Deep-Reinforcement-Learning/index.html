@@ -61,7 +61,7 @@ var _hmt = _hmt || [];
 				<h1 class="site-name"><a href="/" title="YuhZheng&#39;s Geek World">YuhZheng&#39;s Geek World</a></h1>
 				<h2 class="blog-motto"></h2>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
 			<nav class="animated">
 				<ul>
@@ -79,7 +79,7 @@ var _hmt = _hmt || [];
 						</form>
 					
 					</li>
-                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div></li>-->
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>-->
 
 				</ul>
 			</nav>	
@@ -165,7 +165,7 @@ var _hmt = _hmt || [];
 <p>Therefore, several settings can be explored and the samples are less biased.</p>
 <ul>
 <li><p><strong>Advantage</strong>: The objective function uses the difference between Q-value and value function instead of Q-value itself, which estimates the advantage of the particular step the actor is going to take. </p>
-<p>  The Q-value is estimated by an n-step sample<br>$$q_t= r{t+1}+\gamma r{t+2}+\dots+\gamma^{n-1} r{t+n}+\gamma^nV(s{t+n},\textbf{v})$$<br>  And the update of the <strong>actor</strong> is given by<br>$$\frac{\partial l_u}{\partial \textbf{u}}=\frac{\partial \log \pi(a_t|s_t,\textbf{u})}{\partial \textbf{u}}(q_t-V(s_t,\textbf{v}))$$<br> The advantage update makes the algorithm more precise when the training starts to converge and $q_t$ becomes generally very big.</p>
+<p>  The Q-value is estimated by an n-step sample<br>$$q_t= r_{t+1}+\gamma r_{t+2}+\dots+\gamma^{n-1} r_{t+n}+\gamma^nV(s_{t+n},\textbf{v})$$<br>  And the update of the <strong>actor</strong> is given by<br>$$\frac{\partial l_u}{\partial \textbf{u}}=\frac{\partial \log \pi(a_t|s_t,\textbf{u})}{\partial \textbf{u}}(q_t-V(s_t,\textbf{v}))$$<br> The advantage update makes the algorithm more precise when the training starts to converge and $q_t$ becomes generally very big.</p>
 </li>
 <li><p><strong>Actor-critic</strong>: The update of the actor has been shown above. The <strong>critic</strong> is updated to minimize the following MSE<br>$$l_v=(q_t-V(s_t,\textbf{v}))^2$$</p>
 </li>
@@ -203,6 +203,14 @@ var _hmt = _hmt || [];
 </div>  
     </div>
     <footer><div id="footer" >
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install','4dEHehQnS8yQTMyyHW4U','2.0.0');
+</script>
 	<div class="copyright">
 		<span>Powered by <a href="https://github.com/hexojs/hexo">Hexo</a> and theme by 
 		<a href="https://github.com/levonlin/Tinnypp">Tinnypp</a>.</span>
@@ -210,7 +218,8 @@ var _hmt = _hmt || [];
 			<span>© YuhZheng</span>
 		
 	<div>
-</div></footer>
+</div>
+</footer>
     <script src="/js/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){ 
