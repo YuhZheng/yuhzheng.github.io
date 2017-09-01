@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuhzheng.github.io/"/>
-  <updated>2017-09-01T01:38:25.000Z</updated>
+  <updated>2017-09-01T01:44:14.000Z</updated>
   <id>https://yuhzheng.github.io/</id>
   
   <author>
@@ -20,11 +20,13 @@
     <link href="https://yuhzheng.github.io/2017/08/31/Notes-on-Deep-Reinforcement-Learning/"/>
     <id>https://yuhzheng.github.io/2017/08/31/Notes-on-Deep-Reinforcement-Learning/</id>
     <published>2017-09-01T00:36:24.000Z</published>
-    <updated>2017-09-01T01:38:25.000Z</updated>
+    <updated>2017-09-01T01:44:14.000Z</updated>
     
-    <content type="html"><![CDATA[<p><em>Last modified</em> 31 Aug, 2017 @YuhZheng</p>
-<p><em>Reference</em> “Tutorial: Deep Reinforcement Learning” by David Silver, Google Deepmind</p>
-<p>Here is some basic notations for a typical reinforcement learning scenario: </p>
+    <content type="html"><![CDATA[<blockquote>
+<p><em>Last modified</em>    31 Aug, 2017 @YuhZheng</p>
+<p><em>Reference</em>    “Tutorial: Deep Reinforcement Learning” by David Silver, Google Deepmind</p>
+</blockquote>
+<h2 id="Background-Settings"><a href="#Background-Settings" class="headerlink" title="Background Settings"></a>Background Settings</h2><p>Here is some basic notations for a typical reinforcement learning scenario: </p>
 <ul>
 <li>An agent takes <strong>actions</strong> ${a_t}$ in an environment. </li>
 <li>The environment gives the agent <strong>rewards</strong> ${r_t}$. </li>
@@ -55,10 +57,12 @@
 </ul>
 <p>$$\frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\mathbb{E}[\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}Q^{\pi}(s,a)]$$</p>
 <p>Proof:</p>
+<blockquote>
 <p>$\quad L(\textbf{u})=\int \pi(a|s,\textbf{u}) Q^{\pi}(s,a)\mathrm{d}a$</p>
 <p>$\quad \frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\frac{\partial}{\partial \textbf{u}}\int \pi(a|s,\textbf{u}) Q^{\pi}(s,a)\mathrm{d}a=\int \frac{\partial}{\partial \textbf{u}}\pi(a|s,\textbf{u}) Q^{\pi}(s,a)\mathrm{d}a$</p>
 <p>$\quad \mathrm{since} \qquad \frac{\partial}{\partial \textbf{u}}\pi(a|s,\textbf{u}) =\pi(a|s,\textbf{u})\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}$</p>
 <p>$\quad \frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\int \pi(a|s,\textbf{u})\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}} Q^{\pi}(s,a)\mathrm{d}a=\mathbb{E}[\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}Q^{\pi}(s,a)]$</p>
+</blockquote>
 <ul>
 <li>The gradient of a deterministic policy is given by </li>
 </ul>
@@ -93,8 +97,9 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;em&gt;Last modified&lt;/em&gt; 31 Aug, 2017 @YuhZheng&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Reference&lt;/em&gt; “Tutorial: Deep Reinforcement Learning” by David Silver, Google D
+      &lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Last modified&lt;/em&gt;    31 Aug, 2017 @YuhZheng&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Reference&lt;/em&gt;    “Tutorial: Deep Reinforcement Learning” by Dav
     
     </summary>
     
