@@ -1,0 +1,421 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+  
+    <title>Notes on Deep Reinforcement Learning | YuhZheng&#39;s Geek World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Yuhao Zheng">
+    
+    <meta name="description" content="Here is some basic notations for a typical reinforcement learning scenario: 
+
+An agent takes actions ${a_t}$ in an environment. 
+The environment gives">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="YuhZheng&#39;s Geek World" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/profile.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/profile.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/profile.jpg">
+    
+
+  
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    
+  
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?d182ed77fc48758bf45a33835ee35745";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+      <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v1/st.js','_st');
+
+  _st('install','.............Add your swiftype userID...............');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+
+  <body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="YuhZheng&#39;s Geek World">YuhZheng&#39;s Geek World</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+                    <ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+					<li>
+					
+						<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="st-search-inpu" maxlength="20" placeholder="Search" />
+						</form>
+					
+					</li>
+                <!--<li><div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div></li>-->
+
+				</ul>
+			</nav>	
+</div>
+    </header>
+    <div id="container" class="clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2017/08/31/Notes-on-Deep-Reinforcement-Learning/" title="Notes on Deep Reinforcement Learning" itemprop="url">Notes on Deep Reinforcement Learning</a>
+  </h1>
+  <p class="article-time">
+    <time datetime="2017-09-01T00:36:24.000Z" itemprop="datePublished">2017-08-31</time>
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title"></strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Value-based-RL"><span class="toc-number">1.</span> <span class="toc-text">Value-based RL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deep-Q-Networks-DQN"><span class="toc-number">1.1.</span> <span class="toc-text">Deep Q-Networks (DQN)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Double-DQN"><span class="toc-number">1.2.</span> <span class="toc-text">Double DQN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Prioritised-Replay"><span class="toc-number">1.3.</span> <span class="toc-text">Prioritised Replay</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Duelling-Network"><span class="toc-number">1.4.</span> <span class="toc-text">Duelling Network</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Policy-based-Deep-RL"><span class="toc-number">2.</span> <span class="toc-text">Policy-based Deep RL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Policy-Gradients"><span class="toc-number">2.1.</span> <span class="toc-text">Policy Gradients</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Actor-Critic-Algorithm"><span class="toc-number">2.2.</span> <span class="toc-text">Actor-Critic Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Asynchronous-Advantage-Actor-Critic-A3C"><span class="toc-number">2.3.</span> <span class="toc-text">Asynchronous Advantage Actor-Critic (A3C)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deep-Deterministic-Policy-Gradients-DDPG"><span class="toc-number">2.4.</span> <span class="toc-text">Deep Deterministic Policy Gradients (DDPG)</span></a></li></ol></li></ol>
+		</div>
+		
+		<p>Here is some basic notations for a typical reinforcement learning scenario: </p>
+<ul>
+<li>An agent takes <strong>actions</strong> ${a_t}$ in an environment. </li>
+<li>The environment gives the agent <strong>rewards</strong> ${r_t}$. </li>
+<li>The input of the agent from the environment is called <strong>observations</strong> ${o_t}$ </li>
+</ul>
+<p>We hope the agent can learn from its past experience $o_1,r_1,a_1,\dots,a_{t-1},o_t,r_t$, to improve its current <strong>state</strong> $s_t=f(o_1,r_1,a_1,\dots ,a_{t-1},o_t,r_t)$. If the environment can be fully observed, $s_t=f(o_t)$. </p>
+<p>Therefore, we need to revise the policy the agent takes. It can be either </p>
+<ul>
+<li><p><strong>deterministic</strong>     $a=\pi(s)​$, or </p>
+</li>
+<li><p><strong>stochastic</strong>     $\pi(a|s)=\mathbb{P}[a|s]$.<br>​</p>
+</li>
+</ul>
+<h2 id="Value-based-RL"><a href="#Value-based-RL" class="headerlink" title="Value-based RL"></a>Value-based RL</h2><p>We predict the future reward with a Q-value function<br>$$Q^{\pi}(s,a)=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2 r_{t+3}+\dots|s,a]$$<br>which can be decomposed into a Bellman equation<br>$$Q^{\pi}(s,a)=\mathbb{E}_{s’,a’}[r+\gamma Q^{\pi}(s’,a’)|s,a]$$<br>The optimal policy can be given by $\pi^*(s)=\underset{a}{\operatorname{argmax}} Q^{*}(s,a)$, where<br>$$Q^*(s,a)=\underset{\pi}{\max}Q^{\pi}(s,a)=Q^{\pi^*}(s,a)=\mathbb{E}_{s’}[r+\gamma \underset{a’}{\max}Q^{*}(s’,a’)|s,a]$$<br>Note: the main difference between optimal Q-value and Q-value is that the Q value takes expectation w.r.t. both a’ and s’, while optimal Q-value takes expectation only w.r.t. s’, with a’ being the best action that actor can take.</p>
+<h3 id="Deep-Q-Networks-DQN"><a href="#Deep-Q-Networks-DQN" class="headerlink" title="Deep Q-Networks (DQN)"></a>Deep Q-Networks (DQN)</h3><p>If we represent the value function by neural network with weights <strong>w</strong>,<br>$$Q(s,a,\textbf{w})\approx Q^*(s,a)$$<br>The objective function would be MSE loss<br>$$I=(r+\gamma \underset{a’}{\max}Q(s’,a’,\textbf{w})-Q(s,a,\textbf{w}))^2$$<br>However, in this form the target is non-stationary. To solve this problem, we instead use $I=(r+\gamma \underset{a’}{\max}Q(s’,a’,\textbf{w}^-)-Q(s,a,\textbf{w}))^2$ where $\textbf{w}^-$ is held fixed. Then simply apply SGD to train the neural network.</p>
+<h3 id="Double-DQN"><a href="#Double-DQN" class="headerlink" title="Double DQN"></a>Double DQN</h3><p>To remove upward bias, the objective function is rewritten as<br>$$I=(r+\gamma Q(s’,\underset{a’}{\operatorname{argmax}} Q(s’,a’,\textbf{w}),\textbf{w}^-)-Q(s,a,\textbf{w}))^2$$<br>so that we can use the current Q-network to select actions, and use older Q-network to evaluate actions. The main difference lies in the argmax part.</p>
+<h3 id="Prioritised-Replay"><a href="#Prioritised-Replay" class="headerlink" title="Prioritised Replay"></a>Prioritised Replay</h3><p>Experience is stored in priority queue according to surprise<br>$$|r+\gamma \underset{a’}{\max}Q(s’,a’,\textbf{w}^-)-Q(s,a,\textbf{w})|$$<br>so that the training can be more efficient, since more attention is paid to the poorly evaluated experience.</p>
+<h3 id="Duelling-Network"><a href="#Duelling-Network" class="headerlink" title="Duelling Network"></a>Duelling Network</h3><p>The Q-network can be split into two channels:<br>$$Q(s,a)=V(s,\textbf{v})+A(s,a,\textbf{w})$$</p>
+<ul>
+<li><p>Action-independent value function V(s,<strong>v</strong>)</p>
+</li>
+<li><p>Action-dependent advantage function A(s,a,<strong>w</strong>)<br>​</p>
+</li>
+</ul>
+<h2 id="Policy-based-Deep-RL"><a href="#Policy-based-Deep-RL" class="headerlink" title="Policy-based Deep RL"></a>Policy-based Deep RL</h2><p>The policy can also be represented directly by a neural network with weights <strong>u</strong>,<br>$$a = \pi(a|s,\textbf{u}) \quad \mathrm{or} \quad a=\pi(s,\textbf{u})$$<br>The objective function can then be written as total discounted reward<br>$$L(\textbf{u})=\mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2 r_{t+3}+\dots|\pi(·,\textbf{u})]$$<br>Then train the network end-to-end using SGD.</p>
+<h3 id="Policy-Gradients"><a href="#Policy-Gradients" class="headerlink" title="Policy Gradients"></a>Policy Gradients</h3><ul>
+<li>The gradient of a stochastic policy is given by</li>
+</ul>
+<p>$$\frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\mathbb{E}[\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}Q^{\pi}(s,a)]$$</p>
+<p>Proof:</p>
+<p>$\quad L(\textbf{u})=\int \pi(a|s,\textbf{u}) Q^{\pi}(s,a)\mathrm{d}a$</p>
+<p>$\quad \frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\frac{\partial}{\partial \textbf{u}}\int \pi(a|s,\textbf{u}) Q^{\pi}(s,a)\mathrm{d}a=\int \frac{\partial}{\partial \textbf{u}}\pi(a|s,\textbf{u}) Q^{\pi}(s,a)\mathrm{d}a$</p>
+<p>$\quad \mathrm{since} \qquad \frac{\partial}{\partial \textbf{u}}\pi(a|s,\textbf{u}) =\pi(a|s,\textbf{u})\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}$</p>
+<p>$\quad \frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\int \pi(a|s,\textbf{u})\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}} Q^{\pi}(s,a)\mathrm{d}a=\mathbb{E}[\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}Q^{\pi}(s,a)]$</p>
+<ul>
+<li>The gradient of a deterministic policy is given by </li>
+</ul>
+<p>$$\frac{\partial L(\textbf{u})}{\partial \textbf{u}}=\mathbb{E}[\frac{\partial Q^{\pi}(s,a)}{\partial a}\frac{\partial a}{\partial \textbf{u}}]$$</p>
+<p>Proof can be given by the chain rule of derivatives. </p>
+<h3 id="Actor-Critic-Algorithm"><a href="#Actor-Critic-Algorithm" class="headerlink" title="Actor-Critic Algorithm"></a>Actor-Critic Algorithm</h3><p>There are two neural networks here:</p>
+<ul>
+<li>The <strong>critic</strong> estimates value function $Q(s,a,\textbf{w})\approx Q^{\pi}(s,a)$</li>
+<li>The <strong>actor</strong> updates the best policy by stochastic gradient ascent</li>
+<li>Stochastic: $\frac{\partial l}{\partial \textbf{u}}=\frac{\partial \log \pi(a|s,\textbf{u})}{\partial \textbf{u}}Q(s,a,\textbf{w})$</li>
+<li>Deterministic: $\frac{\partial l}{\partial \textbf{u}}=\frac{\partial  Q(s,a,\textbf{w})}{\partial a}\frac{\partial a}{\partial \textbf{u}}$</li>
+</ul>
+<h3 id="Asynchronous-Advantage-Actor-Critic-A3C"><a href="#Asynchronous-Advantage-Actor-Critic-A3C" class="headerlink" title="Asynchronous Advantage Actor-Critic (A3C)"></a>Asynchronous Advantage Actor-Critic (A3C)</h3><ul>
+<li><strong>Asynchronous</strong>: Several actors exploring the same environment, and  value function is given by averaging over rewards.</li>
+</ul>
+<p>$$<br>V(s,\textbf{v}) \approx \mathbb{E}[r_{t+1}+\gamma r_{t+2}+\gamma^2 r_{t+3}+\dots|s]<br>$$</p>
+<p>Therefore, several settings can be explored and the samples are less biased.</p>
+<ul>
+<li><p><strong>Advantage</strong>: The objective function uses the difference between Q-value and value function instead of Q-value itself, which estimates the advantage of the particular step the actor is going to take. </p>
+<p>  The Q-value is estimated by an n-step sample<br>$$q_t= r{t+1}+\gamma r{t+2}+\dots+\gamma^{n-1} r{t+n}+\gamma^nV(s{t+n},\textbf{v})$$<br>  And the update of the <strong>actor</strong> is given by<br>$$\frac{\partial l_u}{\partial \textbf{u}}=\frac{\partial \log \pi(a_t|s_t,\textbf{u})}{\partial \textbf{u}}(q_t-V(s_t,\textbf{v}))$$<br> The advantage update makes the algorithm more precise when the training starts to converge and $q_t$ becomes generally very big.</p>
+</li>
+<li><p><strong>Actor-critic</strong>: The update of the actor has been shown above. The <strong>critic</strong> is updated to minimize the following MSE<br>$$l_v=(q_t-V(s_t,\textbf{v}))^2$$</p>
+</li>
+</ul>
+<h3 id="Deep-Deterministic-Policy-Gradients-DDPG"><a href="#Deep-Deterministic-Policy-Gradients-DDPG" class="headerlink" title="Deep Deterministic Policy Gradients (DDPG)"></a>Deep Deterministic Policy Gradients (DDPG)</h3><p>This is the continuous analog of DQN, which uses experience replay (i.e. build dataset from agent’s experience).</p>
+<p>In high-dimensional continuous action spaces, we cannot easily compute $\underset{a}\max Q(s,a)$, but luckily the actor-critic algorithms learn without max! </p>
+<ul>
+<li><strong>critic</strong>: $\quad I_w=(r+\gamma Q(s’,\pi(s’,\textbf{u}^-),\textbf{w}^-)-Q(s,a,\textbf{w}))^2$</li>
+<li><strong>actor</strong>: $\quad\frac{\partial l_u}{\partial \textbf{u}}=\frac{\partial  Q(s,a,\textbf{w})}{\partial a}\frac{\partial a}{\partial \textbf{u}}$</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="https://yuhzheng.github.io/2017/08/31/Notes-on-Deep-Reinforcement-Learning/" data-title="Notes on Deep Reinforcement Learning | YuhZheng&#39;s Geek World" data-tsina="" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2017/08/31/Notes on Deep Reinforcement Learning/"  title="">
+ <strong>旧一篇:</strong><br/> 
+ <span>(no title)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	
+	<div class="ds-thread" data-title="Notes on Deep Reinforcement Learning" data-thread-key="Notes-on-Deep-Reinforcement-Learning" data-author-key="Yuhao Zheng" data-url="https://yuhzheng.github.io/post/Notes-on-Deep-Reinforcement-Learning"></div>
+	
+</section>
+
+
+</div>  
+    </div>
+    <footer><div id="footer" >
+	<div class="copyright">
+		<span>Powered by <a href="https://github.com/hexojs/hexo">Hexo</a> and theme by 
+		<a href="https://github.com/levonlin/Tinnypp">Tinnypp</a>.</span>
+		
+			<span>© YuhZheng</span>
+		
+	<div>
+</div></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  //back to top
+  function backToTop(){
+    var buttonHTML = $("<a href=\"#top\" id=\"back-top\">" + "<span>Back to Top</span></a>");
+    buttonHTML.appendTo($("body"));
+    var buttonToTop = $("#back-top");
+    // hide #back-top first
+    buttonToTop.hide();
+
+    // fade in #back-top
+    $(function() {
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                buttonToTop.fadeIn();
+            } else {
+                buttonToTop.fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        buttonToTop.click(function() {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+    });
+  }
+  backToTop();
+
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      ta = $('#toc.toc-aside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+        
+    }
+  });
+
+  var show = true;
+  c.click(function(){
+    if(show == true){
+        a.addClass('fadeOut').css('display', 'none');
+        ta.css('display', 'block').addClass('fadeIn');
+        m.addClass('moveMain');  
+    }else{
+        a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');     
+        ta.css('display', 'none'); 
+        m.removeClass('moveMain');
+        $('#toc.toc-aside').css('display', 'none');
+    }
+    show = !show;
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,240-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"tinnypp"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';    //change to ds.src = '/js/embed.js'; to add useragent for duoshuo
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+<script type="text/javascript">
+  function footerPosition() {
+    var contentHeight = document.documentElement.scrollHeight,
+        winHeight = window.innerHeight;
+    if(contentHeight <= winHeight) {
+      $('footer').addClass('fixed-bottom');
+    } else {
+      $('footer').removeClass('fixed-bottom');
+    }
+  }
+  footerPosition();
+  $(window).resize(footerPosition);
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+  </body>
+</html>
